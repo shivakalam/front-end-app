@@ -31,8 +31,10 @@ export const Table = () => {
     return (
         <form name="Customer List">
             <fieldset>
-                <legend>Customer List</legend>
                 <table>
+                    <thead>
+                        <tr><th>Customer List</th></tr>
+                    </thead>
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -50,16 +52,32 @@ export const Table = () => {
                         ))}
                     </tbody>
                 </table>
-                <legend>Update</legend>
-                <label htmlFor="#name">Name</label>
-                <input id="name" type="text"/><br/>
-                <label htmlFor="#email">Email</label>
-                <input id="email" type="email"/><br/>
-                <label htmlFor="#pass">Password</label>
-                <input id="pass" type="password"/> <br />
-                <button type="button" onClick={onDeleteClick}>Delete</button>
-                <button type="button" onClick={onSaveClick}>Save</button>
-                <button type="button" onClick={onCancelClick}>Cancel</button>
+                <table>
+                    <thead>
+                        <tr><th>Update</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><label htmlFor="#name">Name:</label></td>
+                            <td><input id="name" type="text"/></td>
+                        </tr>
+                        <tr>
+                            <td><label htmlFor="#email">Email:</label></td>
+                            <td><input id="email" type="email"/></td>
+                        </tr>
+                        <tr>
+                            <td><label htmlFor="#pass">Pass:</label></td>
+                            <td><input id="pass" type="password"/></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" onClick={onDeleteClick}>Delete</button>
+                                <button type="button" onClick={onSaveClick}>Save</button>
+                                <button type="button" onClick={onCancelClick}>Cancel</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </fieldset>
         </form>
     )
