@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAll, get, post, put, deleteById } from '../memdb';
 
 // Sample Data for demonstration purposes
 let customers = [
@@ -14,10 +15,21 @@ const newCustomer = {
     id: -1
 }
 
-export const Table = ({ customers }) => {
+export const Table = () => {
 
     // To manage new customer entry
     const [cust, setCust] = useState(newCustomer);
+
+    const [customers, setCustomers] = useState([]);
+
+    const getCustomers = () => {
+        console.log('in getCustomers()')
+        setCustomers(getAll());
+    }
+
+    useEffect(() => {
+        getCustomers();
+    }, [])
 
     const handleChange = (e) => {
         setCust({
@@ -32,6 +44,11 @@ export const Table = ({ customers }) => {
 
     const onDeleteClick = () => {
         console.log('in onDeleteClick()')
+        if(cust.id !== -1) {
+            deleteById(cust.id)
+            setCust(newCustomer)
+            getCustomers();
+        }
     }
 
     const onCancelClick = () => {
