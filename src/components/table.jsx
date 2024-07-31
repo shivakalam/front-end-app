@@ -41,6 +41,12 @@ export const Table = () => {
 
     const onSaveClick = () => {
         console.log('in onSaveClick()')
+        if(cust.id === -1) {
+            post(cust)
+        } else {
+            put(cust.id, cust)
+        }
+        onCancelClick()
     }
 
     const onDeleteClick = () => {
@@ -112,8 +118,8 @@ export const Table = () => {
                                 <td><input id="email" type="email" value={cust.email} onChange={handleChange}/></td>
                             </tr>
                             <tr>
-                                <td><label htmlFor="#pass">Pass:</label></td>
-                                <td><input id="pass" type="password" value={cust.password} onChange={handleChange}/></td>
+                                <td><label htmlFor="#password">Pass:</label></td>
+                                <td><input id="password" type="password" value={cust.password} onChange={handleChange}/></td>
                             </tr>
                             <tr>
                                 <td colSpan={2}>
