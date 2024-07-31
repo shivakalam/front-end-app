@@ -7,10 +7,24 @@ let data = [
     {name: 'Glen Glenns', email: 'gleng@abc.com', password: 'gleng', id: 3}
 ]
 
+const newCustomer = {
+    name: "",
+    email: "",
+    password: "",
+    id: -1
+}
+
 export const Table = () => {
 
     // To manage new customer entry
-    const [newCust, setNewCust] = useState({});
+    const [cust, setCust] = useState(newCustomer);
+
+    const handleChange = (e) => {
+        setCust({
+            ...cust,
+            [e.target.id]: e.target.value
+        })
+    }
 
     const onSaveClick = () => {
         console.log('in onSaveClick()')
@@ -22,10 +36,16 @@ export const Table = () => {
 
     const onCancelClick = () => {
         console.log('in onCancelClick()')
+        setCust(newCustomer)
     }
 
-    const handleListClick = () => {
+    const handleListClick = (index) => {
         console.log('in handleListClick()')
+        if(data[index].id === cust.id) {
+            setCust(newCustomer)
+        } else {
+            setCust(data[index])
+        }
     }
 
     return (
@@ -40,12 +60,22 @@ export const Table = () => {
                                 <th>Pass</th>
                             </tr>
                         </thead>
-                        <tbody onClick={handleListClick}>
+                        <tbody>
                             {data.map((entry, index) => (
-                                <tr key={index}>
-                                    <td>{entry.name}</td>
-                                    <td>{entry.email}</td>
-                                    <td>{entry.password}</td>
+                                <tr key={index} onClick={() => handleListClick(index)}>
+                                    {cust.id === entry.id?(
+                                        <>
+                                            <td><strong>{entry.name}</strong></td>
+                                            <td><strong>{entry.email}</strong></td>
+                                            <td><strong>{entry.password}</strong></td>
+                                        </>
+                                    ):(
+                                        <>
+                                            <td>{entry.name}</td>
+                                            <td>{entry.email}</td>
+                                            <td>{entry.password}</td>
+                                        </>
+                                    )}
                                 </tr>
                             ))}
                         </tbody>
@@ -57,15 +87,15 @@ export const Table = () => {
                         <tbody>
                             <tr>
                                 <td><label htmlFor="#name">Name:</label></td>
-                                <td><input id="name" type="text"/></td>
+                                <td><input id="name" type="text" value={cust.name} onChange={handleChange}/></td>
                             </tr>
                             <tr>
                                 <td><label htmlFor="#email">Email:</label></td>
-                                <td><input id="email" type="email"/></td>
+                                <td><input id="email" type="email" value={cust.email} onChange={handleChange}/></td>
                             </tr>
                             <tr>
                                 <td><label htmlFor="#pass">Pass:</label></td>
-                                <td><input id="pass" type="password"/></td>
+                                <td><input id="pass" type="password" value={cust.password} onChange={handleChange}/></td>
                             </tr>
                             <tr>
                                 <td colSpan={2}>
