@@ -32,6 +32,7 @@ export const Table = () => {
     }, [])
 
     const handleChange = (e) => {
+        console.log('in handleChange()')
         setCust({
             ...cust,
             [e.target.id]: e.target.value
