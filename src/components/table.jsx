@@ -99,7 +99,7 @@ export const Table = () => {
                     </table>
                 </div>
                 <div className="boxed">
-                    <h4>Update</h4>
+                    <h4>{cust.id === -1?'Add':'Update'}</h4>
                     <table>
                         <tbody>
                             <tr>
