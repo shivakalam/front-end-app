@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // Sample Data for demonstration purposes
-let data = [
+let customers = [
     {name: 'Jack Jackson', email: 'jackj@abc.com', password: 'jackj', id: 1},
     {name: 'Katie Kates', email: 'katiek@abc.com', password: 'katiek', id: 2},
     {name: 'Glen Glenns', email: 'gleng@abc.com', password: 'gleng', id: 3}
@@ -14,7 +14,7 @@ const newCustomer = {
     id: -1
 }
 
-export const Table = () => {
+export const Table = ({ customers }) => {
 
     // To manage new customer entry
     const [cust, setCust] = useState(newCustomer);
@@ -41,10 +41,10 @@ export const Table = () => {
 
     const handleListClick = (index) => {
         console.log('in handleListClick()')
-        if(data[index].id === cust.id) {
+        if(customers[index].id === cust.id) {
             setCust(newCustomer)
         } else {
-            setCust(data[index])
+            setCust(customers[index])
         }
     }
 
@@ -61,7 +61,7 @@ export const Table = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map((entry, index) => (
+                            {customers.map((entry, index) => (
                                 <tr key={index} onClick={() => handleListClick(index)}>
                                     {cust.id === entry.id?(
                                         <>
