@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAll, get, post, put, deleteById } from '../memdb';
+import { getAll, get, post, put, deleteById } from '../restdb';
 import { Form } from "./form";
 
 // Sample Data for demonstration purposes
@@ -21,19 +21,18 @@ export const Table = () => {
     // To manage new customer entry
     const [cust, setCust] = useState(newCustomer);
 
-    const [customers, setCustomers] = useState([]);
+    const [customers, setCustomers] = useState([])
 
     const getCustomers = () => {
         console.log('in getCustomers()')
-        setCustomers(getAll());
+        getAll(setCustomers);
     }
 
     useEffect(() => {
         getCustomers();
-    }, [])
+    }, [cust])
 
     const handleChange = (e) => {
-        console.log('in handleChange()')
         setCust({
             ...cust,
             [e.target.id]: e.target.value
@@ -42,20 +41,20 @@ export const Table = () => {
 
     const onSaveClick = () => {
         console.log('in onSaveClick()')
+        let callback = () => setCust(newCustomer)
         if(cust.id === -1) {
-            post(cust)
+            post(cust, callback)
         } else {
-            put(cust.id, cust)
+            put(cust.id, cust, callback)
         }
         onCancelClick()
     }
 
     const onDeleteClick = () => {
         console.log('in onDeleteClick()')
+        let callback = () => setCust(newCustomer)
         if(cust.id !== -1) {
-            deleteById(cust.id)
-            setCust(newCustomer)
-            getCustomers();
+            deleteById(cust.id, callback)
         }
     }
 
